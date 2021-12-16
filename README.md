@@ -1,41 +1,40 @@
 # ik-app
 
-REST API Structure
+## REST API Structure
 
-Endpoints:
+### Endpoints:
 
-ik.kz/
-ik.kz/merch/
-ik.kz/media/
-ik.kz/audio/
-ik.kz/video/
-ik.kz/show/
-ik.kz/about/
-ik.kz/contacts/
-
-GET		  ik.kz/merch/		  - get from all categories
-GET		  ik.kz/merch/{id}	- get from specific category
-POST	  ik.kz/merch/		  - create category
-PATCH	  ik.kz/merch/{id}	- update category
-DELETE	ik.kz/merch/{id}	- delete category 
+```
+GET     ik.kz/category/      - get from all categories
+GET     ik.kz/category/{id}  - get from specific category
+POST    ik.kz/category/      - create category
+PATCH   ik.kz/category/{id}  - update category
+DELETE  ik.kz/category/{id}  - delete category
 ...
+```
 
-Database:
+### Database:
 
-Categories table
-id	          integer
-title	        varchar(255)
+#### Category table
+```
+id            integer
+title         varchar(255)
 description   varchar(255)
+```
 
-Item table
-id	          integer
-title	        varchar(255)
-description	  varchar(255)
-quantity	    integer
-size	        integer
-color	        integer
+#### Item table
+```
+id            integer
+title         varchar(255)
+description   varchar(255)
+quantity      integer
+size          integer
+color         integer
+```
 
-List table
-id	          integer
+#### List table
+```
+id            integer
 category_id   integer
-item_id	      integer
+item_id       integer
+```
