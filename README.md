@@ -13,9 +13,9 @@ ik.kz/show/
 ik.kz/about/
 ik.kz/contacts/
 
-GET		  ik.kz/merch/		- get from all categories
+GET		  ik.kz/merch/		  - get from all categories
 GET		  ik.kz/merch/{id}	- get from specific category
-POST	  ik.kz/merch/		- create category
+POST	  ik.kz/merch/		  - create category
 PATCH	  ik.kz/merch/{id}	- update category
 DELETE	ik.kz/merch/{id}	- delete category 
 ...
