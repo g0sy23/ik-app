@@ -12,18 +12,18 @@ type Server struct {
 	App *fiber.App
 }
 
-func NewServer(handlers *ik_handler.Handler) *Server {
+func NewServer(handler *ik_handler.Handler) *Server {
 	s := &Server{
-		App: fiber.New(fiber.Config {
+		App: fiber.New(fiber.Config{
 			AppName: 				"ik-app",
 			ReadTimeout: 		10 * time.Second,
 			WriteTimeout:		10 * time.Second,
 		}),
 	}
-	s.App.Use(cors.New(cors.Config {
-		AllowMethods:		"GET, POST, PATCH, DELETE",
+	s.App.Use(cors.New(cors.Config{
+		AllowMethods:	"GET, POST, PATCH, DELETE",
 	}))
-	handlers.InitRoutes(s.App)
+	handler.InitRoutes(s.App)
 	return s
 }
 

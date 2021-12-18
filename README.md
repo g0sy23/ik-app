@@ -25,16 +25,10 @@ description   varchar(255)
 #### Item table
 ```
 id            integer
+category_id   integer
 title         varchar(255)
 description   varchar(255)
 quantity      integer
 size          integer
 color         integer
-```
-
-#### List table
-```
-id            integer
-category_id   integer
-item_id       integer
 ```
