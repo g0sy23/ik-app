@@ -1,6 +1,17 @@
 package ik_repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/g0sy23/ik-app/internal"
+	"github.com/jmoiron/sqlx"
+)
+
+type MerchCategory interface {
+	CreateMerchCategory(category ik_common.MerchCategory) (int, error)
+}
+
+type MerchItem interface {
+
+}
 
 type Repository struct {
 	MerchCategory
@@ -8,5 +19,7 @@ type Repository struct {
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		MerchCategory: NewMerchCategoryPostgres(db),
+	}
 }
