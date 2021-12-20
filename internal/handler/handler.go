@@ -20,18 +20,18 @@ func (h* Handler) InitRoutes(app *fiber.App) {
 	{
 		category := api.Group("/category")
 		{
-			category.Post("/", 			h.CreateMerchCategory)
-			category.Get("/", 			h.GetMerchCategoryAll)
-			category.Get("/:id", 		h.GetMerchCategoryById)
-			category.Patch("/:id", 	h.UpdateMerchCategory)
-			category.Delete("/:id", h.DeleteMerchCategory)
+			category.Post("/", 			h.createMerchCategory)
+			category.Get("/", 			h.getMerchCategoryAll)
+			category.Get("/:id", 		h.getMerchCategoryById)
+			category.Patch("/:id", 	h.updateMerchCategory)
+			category.Delete("/:id", h.deleteMerchCategory)
 		}
 		item := api.Group("/item")
 		{
-			item.Post("/", 			h.CreateMerchItem)
-			item.Get("/:id", 		h.GetMerchItemById)
-			item.Patch("/:id", 	h.UpdateMerchItem)
-			item.Delete("/:id",	h.DeleteMerchItem)
+			item.Post("/", 			h.createMerchItem)
+			item.Get("/:id", 		h.getMerchItemById)
+			item.Patch("/:id", 	h.updateMerchItem)
+			item.Delete("/:id",	h.deleteMerchItem)
 		}
 	}
 }

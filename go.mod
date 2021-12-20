@@ -4,6 +4,8 @@ go 1.17
 
 require github.com/gofiber/fiber/v2 v2.23.0
 
+require github.com/sirupsen/logrus v1.8.1 // indirect
+
 require (
 	github.com/andybalholm/brotli v1.0.2 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect

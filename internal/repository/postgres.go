@@ -4,6 +4,12 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
+)
+
+const (
+	merchCategoriesTable  = "merch_categories"
+	merchItemsTable 			= "merch_items"
 )
 
 type Config struct {
