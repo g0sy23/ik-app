@@ -15,7 +15,7 @@ func NewMerchCategoryPostgres(db *sqlx.DB) *MerchCategoryPostgres {
   return &MerchCategoryPostgres{database: db}
 }
 
-func (p *MerchCategoryPostgres) CreateMerchCategory(category ik_common.MerchCategory) (int, error) {
+func (p *MerchCategoryPostgres) Create(category ik_common.MerchCategory) (int, error) {
   var ret int
 
   query := fmt.Sprintf(
@@ -29,4 +29,13 @@ func (p *MerchCategoryPostgres) CreateMerchCategory(category ik_common.MerchCate
   }
 
   return ret, nil
+}
+
+func (p *MerchCategoryPostgres) GetAll() ([]ik_common.MerchCategory, error) {
+  var ret []ik_common.MerchCategory
+
+  query := fmt.Sprintf("SELECT * FROM %s", merchCategoriesTable)
+	err   := p.database.Select(&ret, query)
+
+	return ret, err
 }

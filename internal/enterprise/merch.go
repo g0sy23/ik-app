@@ -13,8 +13,12 @@ func NewMerchCategoryEnterprise(repository ik_repository.MerchCategory) *MerchCa
   return &MerchCategoryEnterprise{repository: repository}
 }
 
-func (c *MerchCategoryEnterprise) CreateMerchCategory(category ik_common.MerchCategory) (int, error) {
-  return c.repository.CreateMerchCategory(category);
+func (c *MerchCategoryEnterprise) Create(category ik_common.MerchCategory) (int, error) {
+  return c.repository.Create(category);
+}
+
+func (c *MerchCategoryEnterprise) GetAll() ([]ik_common.MerchCategory, error) {
+  return c.repository.GetAll();
 }
 
 type MerchItemEnterprise struct {

@@ -6,7 +6,8 @@ import (
 )
 
 type MerchCategory interface {
-  CreateMerchCategory(category ik_common.MerchCategory) (int, error)
+  Create(category ik_common.MerchCategory) (int, error)
+  GetAll() ([]ik_common.MerchCategory, error)
 }
 
 type MerchItem interface {
