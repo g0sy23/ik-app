@@ -21,6 +21,10 @@ func (c *MerchCategoryEnterprise) GetAll() ([]ik_common.MerchCategory, error) {
   return c.repository.GetAll();
 }
 
+func (c *MerchCategoryEnterprise) GetById(id int) (ik_common.MerchCategory, error) {
+  return c.repository.GetById(id);
+}
+
 type MerchItemEnterprise struct {
 
 }

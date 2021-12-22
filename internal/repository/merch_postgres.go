@@ -39,3 +39,13 @@ func (p *MerchCategoryPostgres) GetAll() ([]ik_common.MerchCategory, error) {
 
 	return ret, err
 }
+
+func (p *MerchCategoryPostgres) GetById(id int) (ik_common.MerchCategory, error) {
+  var ret ik_common.MerchCategory
+
+  query := fmt.Sprintf("SELECT id, title, description FROM %s WHERE id = $1",
+                       merchCategoriesTable)
+	err   := p.database.Get(&ret, query, id)
+
+	return ret, err
+}
