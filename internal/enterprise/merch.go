@@ -25,6 +25,14 @@ func (c *MerchCategoryEnterprise) GetById(id int) (ik_common.MerchCategory, erro
   return c.repository.GetById(id);
 }
 
+func (c *MerchCategoryEnterprise) Update(id int, category ik_common.MerchCategoryUpdate) error {
+  return c.repository.Update(id, category);
+}
+
+func (c *MerchCategoryEnterprise) Delete(id int) error {
+  return c.repository.Delete(id);
+}
+
 type MerchItemEnterprise struct {
 
 }

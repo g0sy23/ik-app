@@ -9,6 +9,8 @@ type MerchCategory interface {
   Create(category ik_common.MerchCategory) (int, error)
   GetAll() ([]ik_common.MerchCategory, error)
   GetById(id int) (ik_common.MerchCategory, error)
+  Update(id int, category ik_common.MerchCategoryUpdate) error
+  Delete(id int) error
 }
 
 type MerchItem interface {

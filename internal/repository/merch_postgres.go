@@ -1,10 +1,12 @@
 package ik_repository
 
 import (
-  "fmt"
+	"errors"
+	"fmt"
+	"strings"
 
-  "github.com/g0sy23/ik-app/internal"
-  "github.com/jmoiron/sqlx"
+	"github.com/g0sy23/ik-app/internal"
+	"github.com/jmoiron/sqlx"
 )
 
 type MerchCategoryPostgres struct {
@@ -43,9 +45,44 @@ func (p *MerchCategoryPostgres) GetAll() ([]ik_common.MerchCategory, error) {
 func (p *MerchCategoryPostgres) GetById(id int) (ik_common.MerchCategory, error) {
   var ret ik_common.MerchCategory
 
-  query := fmt.Sprintf("SELECT id, title, description FROM %s WHERE id = $1",
+  query := fmt.Sprintf("SELECT id, title, description FROM %s WHERE id=$1",
                        merchCategoriesTable)
 	err   := p.database.Get(&ret, query, id)
 
 	return ret, err
+}
+
+func (p *MerchCategoryPostgres) Update(id int, categoryUpdate ik_common.MerchCategoryUpdate) error {
+  var values []string
+
+  if len(categoryUpdate.Title) > 0 {
+    values = append(values, "title='" + categoryUpdate.Title + "'")
+  }
+
+  if len(categoryUpdate.Description) > 0 {
+    values = append(values, "description='" + categoryUpdate.Description + "'")
+  }
+
+  setValues := strings.Join(values, ",")
+  query     := fmt.Sprintf("UPDATE %s SET %s WHERE id=$1", merchCategoriesTable, setValues)
+
+	res, err  := p.database.Exec(query, id)
+  if err != nil {
+    return err
+  }
+
+  rows, err := res.RowsAffected()
+  if err != nil {
+    return err
+  } else if rows == 0 {
+    return errors.New("row not affected")
+  }
+
+	return nil
+}
+
+func (p *MerchCategoryPostgres) Delete(id int) error {
+  query  := fmt.Sprintf("DELETE FROM %s WHERE id=$1", merchCategoriesTable)
+	_, err := p.database.Exec(query, id)
+	return err
 }
