@@ -1,74 +1,73 @@
 package ik_common
 
 import (
-  "errors"
-  "sync"
+	"errors"
+	"sync"
 
-  "github.com/go-playground/validator/v10"
+	"github.com/go-playground/validator/v10"
 )
 
 type MerchCategory struct {
-  Id          *int    `json:"id" db:"id"`
-  Title       *string `json:"title" db:"title" validate:"required,max=20"`
-  Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
+	Id          *int    `json:"id" db:"id"`
+	Title       *string `json:"title" db:"title" validate:"required,max=20"`
+	Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
 }
 
 func (m *MerchCategory) Validate() error {
-  return GetValidator().Struct(*m)
+	return GetValidator().Struct(*m)
 }
 
 type MerchCategoryUpdate struct {
-  Title       *string `json:"title,omitempty" db:"title" validate:"omitempty,max=20"`
-  Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
+	Title       *string `json:"title,omitempty" db:"title" validate:"omitempty,max=20"`
+	Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
 }
 
 func (m *MerchCategoryUpdate) Validate() error {
-  if *m == (MerchCategoryUpdate{}) {
-    return errors.New("empty content")
-  }
-  return GetValidator().Struct(*m)
+	if *m == (MerchCategoryUpdate{}) {
+		return errors.New("empty content")
+	}
+	return GetValidator().Struct(*m)
 }
 
 type MerchItem struct {
-  Id          *int    `json:"id" db:"id"`
-  CategoryId  *int    `json:"category_id,omitempty" db:"category_id" validate:"omitempty,numeric,min=1"`
-  Title       *string `json:"title" db:"title" validate:"required,max=20"`
-  Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
-  //Images			string[]
-  Price       *int    `json:"price" db:"price" validate:"required,numeric,min=0"`
-  Quantity    *int    `json:"quantity" db:"quantity" validate:"required,numeric,min=0"`
-  Size        *string `json:"size,omitempty" db:"size" validate:"omitempty,max=20"` // todo validate
-  Color       *string `json:"color,omitempty" db:"color" validate:"omitempty,hexcolor|rgb|rgba|hsl|hsla,max=20"`
+	Id          *int    `json:"id" db:"id"`
+	CategoryId  *int    `json:"category_id,omitempty" db:"category_id" validate:"omitempty,numeric,min=1"`
+	Title       *string `json:"title" db:"title" validate:"required,max=20"`
+	Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
+	Price       *int    `json:"price" db:"price" validate:"required,numeric,min=0"`
+	Quantity    *int    `json:"quantity" db:"quantity" validate:"required,numeric,min=0"`
+	Size        *string `json:"size,omitempty" db:"size" validate:"omitempty,max=20"` // todo validate
+	Color       *string `json:"color,omitempty" db:"color" validate:"omitempty,hexcolor|rgb|rgba|hsl|hsla,max=20"`
 }
 
 func (m *MerchItem) Validate() error {
-  return GetValidator().Struct(*m)
+	return GetValidator().Struct(*m)
 }
 
 type MerchItemUpdate struct {
-  CategoryId  *int    `json:"category_id,omitempty" db:"category_id" validate:"omitempty,numeric,min=1"`
-  Title       *string `json:"title,omitempty" db:"title" validate:"omitempty,max=20"`
-  Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
-  //Images			string[]
-  Price       *int    `json:"price,omitempty" db:"price" validate:"omitempty,numeric,min=0"`
-  Quantity    *int    `json:"quantity,omitempty" db:"quantity" validate:"omitempty,numeric,min=0"`
-  Size        *string `json:"size,omitempty" db:"size" validate:"omitempty,max=20"` // todo validate
-  Color       *string `json:"color,omitempty" db:"color" validate:"omitempty,hexcolor|rgb|rgba|hsl|hsla,max=20"`
+	CategoryId  *int    `json:"category_id,omitempty" db:"category_id" validate:"omitempty,numeric,min=1"`
+	Title       *string `json:"title,omitempty" db:"title" validate:"omitempty,max=20"`
+	Description *string `json:"description,omitempty" db:"description" validate:"omitempty,max=40"`
+	Price       *int    `json:"price,omitempty" db:"price" validate:"omitempty,numeric,min=0"`
+	Quantity    *int    `json:"quantity,omitempty" db:"quantity" validate:"omitempty,numeric,min=0"`
+	Size        *string `json:"size,omitempty" db:"size" validate:"omitempty,max=20"` // todo validate
+	Color       *string `json:"color,omitempty" db:"color" validate:"omitempty,hexcolor|rgb|rgba|hsl|hsla,max=20"`
 }
 
 func (m *MerchItemUpdate) Validate() error {
-  if *m == (MerchItemUpdate{}) {
-    return errors.New("empty content")
-  }
-  return GetValidator().Struct(*m)
+	if *m == (MerchItemUpdate{}) {
+		return errors.New("empty content")
+	}
+	return GetValidator().Struct(*m)
 }
 
 // use a singleton of validator, it caches struct info
 var instance *validator.Validate
 var once sync.Once
+
 func GetValidator() *validator.Validate {
-  once.Do(func() {instance = validator.New()})
-  return instance
+	once.Do(func() { instance = validator.New() })
+	return instance
 }
 
 /*type ErrorValidate struct {

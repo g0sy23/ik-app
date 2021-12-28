@@ -1,36 +1,36 @@
 package ik_server
 
 import (
-  "time"
+	"time"
 
-  "github.com/g0sy23/ik-app/internal/handler"
-  "github.com/gofiber/fiber/v2"
-  "github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/g0sy23/ik-app/internal/handler"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 type Server struct {
-  app *fiber.App
+	app *fiber.App
 }
 
 func NewServer(handler *ik_handler.Handler) *Server {
-  s := &Server{
-    app: fiber.New(fiber.Config{
-      AppName:      "ik-app",
-      ReadTimeout:  10 * time.Second,
-      WriteTimeout:	10 * time.Second,
-    }),
-  }
-  s.app.Use(cors.New(cors.Config{
-    AllowMethods:	"GET, POST, PATCH, DELETE",
-  }))
-  handler.InitRoutes(s.app)
-  return s
+	s := &Server{
+		app: fiber.New(fiber.Config{
+			AppName:      "ik-app",
+			ReadTimeout:  10 * time.Second,
+			WriteTimeout: 10 * time.Second,
+		}),
+	}
+	s.app.Use(cors.New(cors.Config{
+		AllowMethods: "GET, POST, PATCH, DELETE",
+	}))
+	handler.InitRoutes(s.app)
+	return s
 }
 
 func (s *Server) Run(port string) error {
-  return s.app.Listen(":" + port)
+	return s.app.Listen(":" + port)
 }
 
 func (s *Server) Shutdown() error {
-  return s.app.Shutdown()
+	return s.app.Shutdown()
 }
