@@ -14,7 +14,12 @@ type MerchCategory interface {
 }
 
 type MerchItem interface {
-
+  Create(category ik_common.MerchItem) (int, error)
+  GetAll() ([]ik_common.MerchItem, error)
+  GetById(id int) (ik_common.MerchItem, error)
+  GetByCategoryId(category_id int) ([]ik_common.MerchItem, error)
+  Update(id int, category ik_common.MerchItemUpdate) error
+  Delete(id int) error
 }
 
 type Repository struct {
@@ -25,5 +30,6 @@ type Repository struct {
 func NewRepository(db *sqlx.DB) *Repository {
   return &Repository{
     MerchCategory: NewMerchCategoryPostgres(db),
+    MerchItem:     NewMerchItemPostgres(db),
   }
 }

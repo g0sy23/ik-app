@@ -25,8 +25,8 @@ func (c *MerchCategoryEnterprise) GetById(id int) (ik_common.MerchCategory, erro
   return c.repository.GetById(id);
 }
 
-func (c *MerchCategoryEnterprise) Update(id int, category ik_common.MerchCategoryUpdate) error {
-  return c.repository.Update(id, category);
+func (c *MerchCategoryEnterprise) Update(id int, categoryUpdate ik_common.MerchCategoryUpdate) error {
+  return c.repository.Update(id, categoryUpdate);
 }
 
 func (c *MerchCategoryEnterprise) Delete(id int) error {
@@ -34,5 +34,40 @@ func (c *MerchCategoryEnterprise) Delete(id int) error {
 }
 
 type MerchItemEnterprise struct {
+  repository         ik_repository.MerchItem
+  categoryRepository ik_repository.MerchCategory
+}
 
+func NewMerchItemEnterprise(
+  repository ik_repository.MerchItem,
+  categoryRepository ik_repository.MerchCategory,
+) *MerchItemEnterprise {
+  return &MerchItemEnterprise{
+    repository:         repository,
+    categoryRepository: categoryRepository,
+  }
+}
+
+func (c *MerchItemEnterprise) Create(item ik_common.MerchItem) (int, error) {
+  return c.repository.Create(item);
+}
+
+func (c *MerchItemEnterprise) GetAll() ([]ik_common.MerchItem, error) {
+  return c.repository.GetAll();
+}
+
+func (c *MerchItemEnterprise) GetById(id int) (ik_common.MerchItem, error) {
+  return c.repository.GetById(id);
+}
+
+func (c *MerchItemEnterprise) GetByCategoryId(category_id int) ([]ik_common.MerchItem, error) {
+  return c.repository.GetByCategoryId(category_id);
+}
+
+func (c *MerchItemEnterprise) Update(id int, itemUpdate ik_common.MerchItemUpdate) error {
+  return c.repository.Update(id, itemUpdate);
+}
+
+func (c *MerchItemEnterprise) Delete(id int) error {
+  return c.repository.Delete(id);
 }
