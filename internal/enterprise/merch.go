@@ -1,7 +1,7 @@
 package ik_enterprise
 
 import (
-	"github.com/g0sy23/ik-app/internal"
+	"github.com/g0sy23/ik-app/internal/models"
 	"github.com/g0sy23/ik-app/internal/repository"
 )
 
@@ -13,19 +13,19 @@ func NewMerchCategoryEnterprise(repository ik_repository.MerchCategory) *MerchCa
 	return &MerchCategoryEnterprise{repository: repository}
 }
 
-func (c *MerchCategoryEnterprise) Create(category ik_common.MerchCategory) (int, error) {
+func (c *MerchCategoryEnterprise) Create(category ik_models.MerchCategory) (int, error) {
 	return c.repository.Create(category)
 }
 
-func (c *MerchCategoryEnterprise) GetAll() ([]ik_common.MerchCategory, error) {
+func (c *MerchCategoryEnterprise) GetAll() ([]ik_models.MerchCategory, error) {
 	return c.repository.GetAll()
 }
 
-func (c *MerchCategoryEnterprise) GetById(id int) (ik_common.MerchCategory, error) {
+func (c *MerchCategoryEnterprise) GetById(id int) (ik_models.MerchCategory, error) {
 	return c.repository.GetById(id)
 }
 
-func (c *MerchCategoryEnterprise) Update(id int, categoryUpdate ik_common.MerchCategoryUpdate) error {
+func (c *MerchCategoryEnterprise) Update(id int, categoryUpdate ik_models.MerchCategoryUpdate) error {
 	return c.repository.Update(id, categoryUpdate)
 }
 
@@ -48,23 +48,23 @@ func NewMerchItemEnterprise(
 	}
 }
 
-func (c *MerchItemEnterprise) Create(item ik_common.MerchItem) (int, error) {
+func (c *MerchItemEnterprise) Create(item ik_models.MerchItem) (int, error) {
 	return c.repository.Create(item)
 }
 
-func (c *MerchItemEnterprise) GetAll() ([]ik_common.MerchItem, error) {
+func (c *MerchItemEnterprise) GetAll() ([]ik_models.MerchItem, error) {
 	return c.repository.GetAll()
 }
 
-func (c *MerchItemEnterprise) GetById(id int) (ik_common.MerchItem, error) {
+func (c *MerchItemEnterprise) GetById(id int) (ik_models.MerchItem, error) {
 	return c.repository.GetById(id)
 }
 
-func (c *MerchItemEnterprise) GetByCategoryId(category_id int) ([]ik_common.MerchItem, error) {
+func (c *MerchItemEnterprise) GetByCategoryId(category_id int) ([]ik_models.MerchItem, error) {
 	return c.repository.GetByCategoryId(category_id)
 }
 
-func (c *MerchItemEnterprise) Update(id int, itemUpdate ik_common.MerchItemUpdate) error {
+func (c *MerchItemEnterprise) Update(id int, itemUpdate ik_models.MerchItemUpdate) error {
 	return c.repository.Update(id, itemUpdate)
 }
 

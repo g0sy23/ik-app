@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/g0sy23/ik-app/internal"
+	"github.com/g0sy23/ik-app/internal/models"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -17,7 +17,7 @@ func NewMerchCategoryPostgres(database *sqlx.DB) *MerchCategoryPostgres {
 	return &MerchCategoryPostgres{database: database}
 }
 
-func (p *MerchCategoryPostgres) Create(category ik_common.MerchCategory) (int, error) {
+func (p *MerchCategoryPostgres) Create(category ik_models.MerchCategory) (int, error) {
 	var ret int
 	var columns []string
 	var values []string
@@ -43,8 +43,8 @@ func (p *MerchCategoryPostgres) Create(category ik_common.MerchCategory) (int, e
 	return ret, nil
 }
 
-func (p *MerchCategoryPostgres) GetAll() ([]ik_common.MerchCategory, error) {
-	var ret []ik_common.MerchCategory
+func (p *MerchCategoryPostgres) GetAll() ([]ik_models.MerchCategory, error) {
+	var ret []ik_models.MerchCategory
 
 	query := fmt.Sprintf("SELECT * FROM %s", merchCategoriesTable)
 	err := p.database.Select(&ret, query)
@@ -52,8 +52,8 @@ func (p *MerchCategoryPostgres) GetAll() ([]ik_common.MerchCategory, error) {
 	return ret, err
 }
 
-func (p *MerchCategoryPostgres) GetById(id int) (ik_common.MerchCategory, error) {
-	var ret ik_common.MerchCategory
+func (p *MerchCategoryPostgres) GetById(id int) (ik_models.MerchCategory, error) {
+	var ret ik_models.MerchCategory
 
 	query := fmt.Sprintf("SELECT * FROM %s WHERE id=$1", merchCategoriesTable)
 	err := p.database.Get(&ret, query, id)
@@ -61,7 +61,7 @@ func (p *MerchCategoryPostgres) GetById(id int) (ik_common.MerchCategory, error)
 	return ret, err
 }
 
-func (p *MerchCategoryPostgres) Update(id int, categoryUpdate ik_common.MerchCategoryUpdate) error {
+func (p *MerchCategoryPostgres) Update(id int, categoryUpdate ik_models.MerchCategoryUpdate) error {
 	var values []string
 
 	if categoryUpdate.Title != nil {
@@ -116,7 +116,7 @@ func NewMerchItemPostgres(database *sqlx.DB) *MerchItemPostgres {
 	return &MerchItemPostgres{database: database}
 }
 
-func (p *MerchItemPostgres) Create(item ik_common.MerchItem) (int, error) {
+func (p *MerchItemPostgres) Create(item ik_models.MerchItem) (int, error) {
 	var ret int
 	var columns []string
 	var values []string
@@ -165,8 +165,8 @@ func (p *MerchItemPostgres) Create(item ik_common.MerchItem) (int, error) {
 	return ret, nil
 }
 
-func (p *MerchItemPostgres) GetAll() ([]ik_common.MerchItem, error) {
-	var ret []ik_common.MerchItem
+func (p *MerchItemPostgres) GetAll() ([]ik_models.MerchItem, error) {
+	var ret []ik_models.MerchItem
 
 	query := fmt.Sprintf("SELECT * FROM %s", merchItemsTable)
 	err := p.database.Select(&ret, query)
@@ -174,8 +174,8 @@ func (p *MerchItemPostgres) GetAll() ([]ik_common.MerchItem, error) {
 	return ret, err
 }
 
-func (p *MerchItemPostgres) GetById(id int) (ik_common.MerchItem, error) {
-	var ret ik_common.MerchItem
+func (p *MerchItemPostgres) GetById(id int) (ik_models.MerchItem, error) {
+	var ret ik_models.MerchItem
 
 	query := fmt.Sprintf("SELECT * FROM %s WHERE id=$1", merchItemsTable)
 	err := p.database.Get(&ret, query, id)
@@ -183,8 +183,8 @@ func (p *MerchItemPostgres) GetById(id int) (ik_common.MerchItem, error) {
 	return ret, err
 }
 
-func (p *MerchItemPostgres) GetByCategoryId(category_id int) ([]ik_common.MerchItem, error) {
-	var ret []ik_common.MerchItem
+func (p *MerchItemPostgres) GetByCategoryId(category_id int) ([]ik_models.MerchItem, error) {
+	var ret []ik_models.MerchItem
 
 	query := fmt.Sprintf("SELECT * FROM %s WHERE category_id=$1", merchItemsTable)
 	err := p.database.Get(&ret, query, category_id)
@@ -192,7 +192,7 @@ func (p *MerchItemPostgres) GetByCategoryId(category_id int) ([]ik_common.MerchI
 	return ret, err
 }
 
-func (p *MerchItemPostgres) Update(id int, itemUpdate ik_common.MerchItemUpdate) error {
+func (p *MerchItemPostgres) Update(id int, itemUpdate ik_models.MerchItemUpdate) error {
 	var values []string
 
 	if itemUpdate.CategoryId != nil {

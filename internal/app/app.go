@@ -1,4 +1,4 @@
-package main
+package ik_app
 
 import (
 	"os"
@@ -14,10 +14,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-func main() {
+func Run(configPath, configName string) {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
-	if err := initConfig(); err != nil {
+	if err := initConfig(configPath, configName); err != nil {
 		logrus.Fatalf("error on initializing config - '%s'", err.Error())
 	}
 
@@ -32,7 +32,7 @@ func main() {
 	server := ik_server.NewServer(handler)
 
 	go func() {
-		if err = server.Run(viper.GetString("port")); err != nil {
+		if err := server.Run(viper.GetString("port")); err != nil {
 			logrus.Fatalf("error on initializing server - '%s'", err.Error())
 		}
 	}()
@@ -54,9 +54,9 @@ func main() {
 	}
 }
 
-func initConfig() error {
-	viper.AddConfigPath("configs")
-	viper.SetConfigName("config")
+func initConfig(configPath, configName string) error {
+	viper.AddConfigPath(configPath)
+	viper.SetConfigName(configName)
 	return viper.ReadInConfig()
 }
 

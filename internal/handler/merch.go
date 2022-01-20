@@ -3,12 +3,12 @@ package ik_handler
 import (
 	"strconv"
 
-	"github.com/g0sy23/ik-app/internal"
+	"github.com/g0sy23/ik-app/internal/models"
 	"github.com/gofiber/fiber/v2"
 )
 
 func (h *Handler) createMerchCategory(context *fiber.Ctx) error {
-	var category ik_common.MerchCategory
+	var category ik_models.MerchCategory
 
 	if err := context.BodyParser(&category); err != nil {
 		return responseError(context, fiber.StatusBadRequest, "failed to parse body", err.Error())
@@ -55,7 +55,7 @@ func (h *Handler) updateMerchCategory(context *fiber.Ctx) error {
 		return responseError(context, fiber.StatusBadRequest, "failed to get id", err.Error())
 	}
 
-	var categoryUpdate ik_common.MerchCategoryUpdate
+	var categoryUpdate ik_models.MerchCategoryUpdate
 
 	if err := context.BodyParser(&categoryUpdate); err != nil {
 		return responseError(context, fiber.StatusBadRequest, "failed to parse body", err.Error())
@@ -86,7 +86,7 @@ func (h *Handler) deleteMerchCategory(context *fiber.Ctx) error {
 }
 
 func (h *Handler) createMerchItem(context *fiber.Ctx) error {
-	var item ik_common.MerchItem
+	var item ik_models.MerchItem
 
 	if err := context.BodyParser(&item); err != nil {
 		return responseError(context, fiber.StatusBadRequest, "failed to parse body", err.Error())
@@ -147,7 +147,7 @@ func (h *Handler) updateMerchItem(context *fiber.Ctx) error {
 		return responseError(context, fiber.StatusBadRequest, "failed to get id", err.Error())
 	}
 
-	var itemUpdate ik_common.MerchItemUpdate
+	var itemUpdate ik_models.MerchItemUpdate
 
 	if err := context.BodyParser(&itemUpdate); err != nil {
 		return responseError(context, fiber.StatusBadRequest, "failed to parse body", err.Error())
