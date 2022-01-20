@@ -27,7 +27,7 @@ type Repository struct {
 	MerchItem
 }
 
-func NewRepository(db *sqlx.DB) *Repository {
+func New(db *sqlx.DB) *Repository {
 	return &Repository{
 		MerchCategory: NewMerchCategoryPostgres(db),
 		MerchItem:     NewMerchItemPostgres(db),

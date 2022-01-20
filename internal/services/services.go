@@ -1,4 +1,4 @@
-package ik_enterprise
+package ik_services
 
 import (
 	"github.com/g0sy23/ik-app/internal/models"
@@ -22,14 +22,14 @@ type MerchItem interface {
 	Delete(id int) error
 }
 
-type Enterprise struct {
+type Services struct {
 	MerchCategory
 	MerchItem
 }
 
-func NewEnterprise(repository *ik_repository.Repository) *Enterprise {
-	return &Enterprise{
-		MerchCategory: NewMerchCategoryEnterprise(repository.MerchCategory),
-		MerchItem:     NewMerchItemEnterprise(repository.MerchItem, repository.MerchCategory),
+func New(repository *ik_repository.Repository) *Services {
+	return &Services{
+		MerchCategory: NewMerchCategoryService(repository.MerchCategory),
+		MerchItem:     NewMerchItemService(repository.MerchItem, repository.MerchCategory),
 	}
 }

@@ -5,10 +5,10 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/g0sy23/ik-app/internal/enterprise"
 	"github.com/g0sy23/ik-app/internal/handler"
 	"github.com/g0sy23/ik-app/internal/repository"
 	"github.com/g0sy23/ik-app/internal/server"
+	"github.com/g0sy23/ik-app/internal/services"
 	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -26,10 +26,10 @@ func Run(configPath, configName string) {
 		logrus.Fatalf("error on initializing database - '%s'", err.Error())
 	}
 
-	repository := ik_repository.NewRepository(database)
-	enterprise := ik_enterprise.NewEnterprise(repository)
-	handler := ik_handler.NewHandler(enterprise)
-	server := ik_server.NewServer(handler)
+	repository := ik_repository.New(database)
+	enterprise := ik_services.New(repository)
+	handler := ik_handler.New(enterprise)
+	server := ik_server.New(handler)
 
 	go func() {
 		if err := server.Run(viper.GetString("port")); err != nil {

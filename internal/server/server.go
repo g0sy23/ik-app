@@ -12,7 +12,7 @@ type Server struct {
 	app *fiber.App
 }
 
-func NewServer(handler *ik_handler.Handler) *Server {
+func New(handler *ik_handler.Handler) *Server {
 	s := &Server{
 		app: fiber.New(fiber.Config{
 			AppName:      "ik-app",

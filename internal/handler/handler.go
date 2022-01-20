@@ -1,15 +1,15 @@
 package ik_handler
 
 import (
-	"github.com/g0sy23/ik-app/internal/enterprise"
+	"github.com/g0sy23/ik-app/internal/services"
 	"github.com/gofiber/fiber/v2"
 )
 
 type Handler struct {
-	enterprise *ik_enterprise.Enterprise
+	enterprise *ik_services.Services
 }
 
-func NewHandler(enterprise *ik_enterprise.Enterprise) *Handler {
+func New(enterprise *ik_services.Services) *Handler {
 	return &Handler{
 		enterprise: enterprise,
 	}

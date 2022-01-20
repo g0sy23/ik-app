@@ -5,12 +5,11 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func responseError(context *fiber.Ctx, status int, message string, data string) error {
-	logrus.WithField("data", data).Error(message)
-	return context.Status(status).JSON(
-		fiber.Map{
-			"message": message,
-			"data":    data,
-		},
-	)
+func responseStatusOK(context *fiber.Ctx) error {
+	return context.SendStatus(fiber.StatusOK)
+}
+
+func responseData(context *fiber.Ctx, data map[string]interface{}) error {
+	logrus.WithFields(data).Debug()
+	return context.Status(data["status"].(int)).JSON(data)
 }
