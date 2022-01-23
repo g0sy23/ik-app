@@ -2,7 +2,8 @@ package ik_repository
 
 import (
 	"github.com/g0sy23/ik-app/internal/models"
-	"github.com/jmoiron/sqlx"
+	"github.com/g0sy23/ik-app/internal/repository/postgres"
+	"github.com/g0sy23/ik-app/pkg/database/postgres"
 )
 
 type MerchCategory interface {
@@ -27,9 +28,9 @@ type Repository struct {
 	MerchItem
 }
 
-func New(db *sqlx.DB) *Repository {
+func New(database *postgresdb.PostgresDB) *Repository {
 	return &Repository{
-		MerchCategory: NewMerchCategoryPostgres(db),
-		MerchItem:     NewMerchItemPostgres(db),
+		MerchCategory: ik_postgres.NewMerchCategoryPostgres(database),
+		MerchItem:     ik_postgres.NewMerchItemPostgres(database),
 	}
 }

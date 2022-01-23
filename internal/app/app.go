@@ -9,7 +9,7 @@ import (
 	"github.com/g0sy23/ik-app/internal/repository"
 	"github.com/g0sy23/ik-app/internal/server"
 	"github.com/g0sy23/ik-app/internal/services"
-	"github.com/jmoiron/sqlx"
+	"github.com/g0sy23/ik-app/pkg/database/postgres"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
@@ -27,8 +27,8 @@ func Run(configPath, configName string) {
 	}
 
 	repository := ik_repository.New(database)
-	enterprise := ik_services.New(repository)
-	handler := ik_handler.New(enterprise)
+	services := ik_services.New(repository)
+	handler := ik_handler.New(services)
 	server := ik_server.New(handler)
 
 	go func() {
@@ -60,15 +60,16 @@ func initConfig(configPath, configName string) error {
 	return viper.ReadInConfig()
 }
 
-func initDatabase() (*sqlx.DB, error) {
-	return ik_repository.NewPostgresDB(
-		ik_repository.Config{
-			Host:     viper.GetString("db.host"),
-			Port:     viper.GetString("db.port"),
-			Username: viper.GetString("db.username"),
-			Password: viper.GetString("db.password"),
-			DBName:   viper.GetString("db.name"),
-			SSLMode:  viper.GetString("db.sslmode"),
+func initDatabase() (*postgresdb.PostgresDB, error) {
+	return postgresdb.New(
+		postgresdb.Config{
+			DriverName: viper.GetString("db.driver"),
+			Host:       viper.GetString("db.host"),
+			Port:       viper.GetString("db.port"),
+			Username:   viper.GetString("db.username"),
+			Password:   viper.GetString("db.password"),
+			DBName:     viper.GetString("db.name"),
+			SSLMode:    viper.GetString("db.sslmode"),
 		},
 	)
 }
