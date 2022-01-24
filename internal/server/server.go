@@ -24,6 +24,9 @@ func New(handler *ik_handler.Handler) *Server {
 		AllowMethods: "GET, POST, PATCH, DELETE",
 	}))
 	handler.InitRoutes(s.app)
+	s.app.Use(func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusNotFound).SendString("Sorry can't find that!")
+	})
 	return s
 }
 
