@@ -1,8 +1,11 @@
 package ik_handler
 
 import (
-	"github.com/g0sy23/ik-app/internal/services"
+	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
+	"github.com/g0sy23/ik-app/internal/services"
+
+	_ "github.com/g0sy23/ik-app/docs"
 )
 
 type Handler struct {
@@ -41,4 +44,5 @@ func (h *Handler) InitRoutes(app *fiber.App) {
 		merch.Get("/:id", h.getMerchItemsByCategoryId)
 		merch.Get("/item/:id", h.getMerchItemById)
 	}
+	app.Get("/swagger/*", swagger.HandlerDefault) // default swagger
 }

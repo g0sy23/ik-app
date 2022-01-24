@@ -53,6 +53,16 @@ func (h *Handler) createMerchCategory(context *fiber.Ctx) error {
 	)
 }
 
+// @Summary      Get all merch categories
+// @Description  Get all merch categories
+// @Tags         category
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  map[string]interface{}
+// @Failure      400  {object}  map[string]interface{}
+// @Failure      404  {object}  map[string]interface{}
+// @Failure      500  {object}  map[string]interface{}
+// @Router       /api/category [get]
 func (h *Handler) getMerchCategoriesAll(context *fiber.Ctx) error {
 	categories, err := h.enterprise.MerchCategory.GetAll()
 	if err != nil {
@@ -75,6 +85,17 @@ func (h *Handler) getMerchCategoriesAll(context *fiber.Ctx) error {
 	)
 }
 
+// @Summary      Get category by ID
+// @Description  Get merch category by given ID
+// @Tags         category
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "category ID"
+// @Success      200  {object}  map[string]interface{}
+// @Failure      400  {object}  map[string]interface{}
+// @Failure      404  {object}  map[string]interface{}
+// @Failure      500  {object}  map[string]interface{}
+// @Router       /api/category/{id} [get]
 func (h *Handler) getMerchCategoryById(context *fiber.Ctx) error {
 	id, err := strconv.Atoi(context.Params("id"))
 	if err != nil {
