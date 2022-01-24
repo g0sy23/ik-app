@@ -82,6 +82,13 @@ func (d *PostgresDB) GetAll(ret interface{}, table string) error {
 	return d.database.Select(ret, query)
 }
 
+func (d *PostgresDB) GetAllPaged(ret interface{}, table string, pageNumber int) error {
+	pageSize := 1
+	offset := (pageNumber - 1) * pageSize
+	query := fmt.Sprintf("SELECT * FROM %s LIMIT $1 OFFSET $2", table)
+	return d.database.Select(ret, query, pageSize, offset)
+}
+
 func (d *PostgresDB) GetById(ret interface{}, table string, id int) error {
 	query := fmt.Sprintf("SELECT * FROM %s WHERE id=$1", table)
 	return d.database.Get(ret, query, id)

@@ -32,7 +32,7 @@ func (h *Handler) createMerchItem(context *fiber.Ctx) error {
 		)
 	}
 
-	id, err := h.enterprise.MerchItem.Create(item)
+	id, err := h.services.MerchItem.Create(item)
 	if err != nil {
 		return responseData(
 			context,
@@ -62,9 +62,21 @@ func (h *Handler) createMerchItem(context *fiber.Ctx) error {
 // @Failure      400  {object}  map[string]interface{}
 // @Failure      404  {object}  map[string]interface{}
 // @Failure      500  {object}  map[string]interface{}
-// @Router       /api/item [get]
+// @Router       /api/item/:page_number [get]
 func (h *Handler) getMerchItemsAll(context *fiber.Ctx) error {
-	items, err := h.enterprise.MerchItem.GetAll()
+	pageNumber, err := strconv.Atoi(context.Params("page_number"))
+	if err != nil {
+		return responseData(
+			context,
+			map[string]interface{}{
+				"error": err.Error(),
+				"status": fiber.StatusBadRequest,
+				"message": "failed to get page number",
+			},
+		)
+	}
+
+	items, err := h.services.MerchItem.GetAllPaged(pageNumber)
 	if err != nil {
 		return responseData(
 			context,
@@ -109,7 +121,7 @@ func (h *Handler) getMerchItemById(context *fiber.Ctx) error {
 		)
 	}
 
-	item, err := h.enterprise.MerchItem.GetById(id)
+	item, err := h.services.MerchItem.GetById(id)
 	if err != nil {
 		return responseData(
 			context,
@@ -131,7 +143,7 @@ func (h *Handler) getMerchItemById(context *fiber.Ctx) error {
 }
 
 func (h *Handler) getMerchItemsByCategoryId(context *fiber.Ctx) error {
-	category_id, err := strconv.Atoi(context.Params("category_id"))
+	categoryId, err := strconv.Atoi(context.Params("category_id"))
 	if err != nil {
 		return responseData(
 			context,
@@ -143,7 +155,19 @@ func (h *Handler) getMerchItemsByCategoryId(context *fiber.Ctx) error {
 		)
 	}
 
-	items, err := h.enterprise.MerchItem.GetByCategoryId(category_id)
+	/*pageNumber, err := strconv.Atoi(context.Params("page_number"))
+	if err != nil {
+		return responseData(
+			context,
+			map[string]interface{}{
+				"error": err.Error(),
+				"status": fiber.StatusBadRequest,
+				"message": "failed to get page number",
+			},
+		)
+	}*/
+
+	items, err := h.services.MerchItem.GetByCategoryId(categoryId/*, pageNumber*/)
 	if err != nil {
 		return responseData(
 			context,
@@ -201,7 +225,7 @@ func (h *Handler) updateMerchItem(context *fiber.Ctx) error {
 		)
 	}
 
-	if err := h.enterprise.MerchItem.Update(id, itemUpdate); err != nil {
+	if err := h.services.MerchItem.Update(id, itemUpdate); err != nil {
 		return responseData(
 			context,
 			map[string]interface{}{
@@ -228,7 +252,7 @@ func (h *Handler) deleteMerchItem(context *fiber.Ctx) error {
 		)
 	}
 
-	if err := h.enterprise.MerchItem.Delete(id); err != nil {
+	if err := h.services.MerchItem.Delete(id); err != nil {
 		return responseData(
 			context,
 			map[string]interface{}{

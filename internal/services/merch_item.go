@@ -28,12 +28,16 @@ func (c *MerchItemService) GetAll() ([]ik_models.MerchItem, error) {
 	return c.repository.GetAll()
 }
 
+func (c *MerchItemService) GetAllPaged(pageNumber int) ([]ik_models.MerchItem, error) {
+	return c.repository.GetAllPaged(pageNumber)
+}
+
 func (c *MerchItemService) GetById(id int) (ik_models.MerchItem, error) {
 	return c.repository.GetById(id)
 }
 
-func (c *MerchItemService) GetByCategoryId(category_id int) ([]ik_models.MerchItem, error) {
-	return c.repository.GetByCategoryId(category_id)
+func (c *MerchItemService) GetByCategoryId(categoryId/*, pageNumber*/ int) ([]ik_models.MerchItem, error) {
+	return c.repository.GetByCategoryId(categoryId/*, pageNumber*/)
 }
 
 func (c *MerchItemService) Update(id int, itemUpdate ik_models.MerchItemUpdate) error {

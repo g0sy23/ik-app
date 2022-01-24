@@ -17,8 +17,9 @@ type MerchCategory interface {
 type MerchItem interface {
 	Create(category ik_models.MerchItem) (int, error)
 	GetAll() ([]ik_models.MerchItem, error)
+	GetAllPaged(pageNumber int) ([]ik_models.MerchItem, error)
 	GetById(id int) (ik_models.MerchItem, error)
-	GetByCategoryId(category_id int) ([]ik_models.MerchItem, error)
+	GetByCategoryId(categoryId/*, pageNumber*/ int) ([]ik_models.MerchItem, error)
 	Update(id int, category ik_models.MerchItemUpdate) error
 	Delete(id int) error
 }

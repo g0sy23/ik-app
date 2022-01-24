@@ -52,16 +52,22 @@ func (p *MerchItemPostgres) GetAll() ([]ik_models.MerchItem, error) {
 	return ret, err
 }
 
+func (p *MerchItemPostgres) GetAllPaged(pageNumber int) ([]ik_models.MerchItem, error) {
+	var ret []ik_models.MerchItem
+	err := p.database.GetAllPaged(&ret, merchItemsTable, pageNumber)
+	return ret, err
+}
+
 func (p *MerchItemPostgres) GetById(id int) (ik_models.MerchItem, error) {
 	var ret ik_models.MerchItem
 	err := p.database.GetById(&ret, merchItemsTable, id)
 	return ret, err
 }
 
-func (p *MerchItemPostgres) GetByCategoryId(category_id int) ([]ik_models.MerchItem, error) {
-	fields := postgresdb.Fields{"category_id": category_id}
+func (p *MerchItemPostgres) GetByCategoryId(categoryId/*, pageNumber*/ int) ([]ik_models.MerchItem, error) {
+	fields := postgresdb.Fields{"category_id": categoryId}
 	var ret []ik_models.MerchItem
-	err := p.database.Get(&ret, merchItemsTable, fields)
+	err := p.database.Get(&ret, merchItemsTable/*, pageNumber*/, fields)
 	return ret, err
 }
 

@@ -32,7 +32,7 @@ func (h *Handler) createMerchCategory(context *fiber.Ctx) error {
 		)
 	}
 
-	id, err := h.enterprise.MerchCategory.Create(category)
+	id, err := h.services.MerchCategory.Create(category)
 	if err != nil {
 		return responseData(
 			context,
@@ -64,7 +64,7 @@ func (h *Handler) createMerchCategory(context *fiber.Ctx) error {
 // @Failure      500  {object}  map[string]interface{}
 // @Router       /api/category [get]
 func (h *Handler) getMerchCategoriesAll(context *fiber.Ctx) error {
-	categories, err := h.enterprise.MerchCategory.GetAll()
+	categories, err := h.services.MerchCategory.GetAll()
 	if err != nil {
 		return responseData(
 			context,
@@ -109,7 +109,7 @@ func (h *Handler) getMerchCategoryById(context *fiber.Ctx) error {
 		)
 	}
 
-	category, err := h.enterprise.MerchCategory.GetById(id)
+	category, err := h.services.MerchCategory.GetById(id)
 	if err != nil {
 		return responseData(
 			context,
@@ -167,7 +167,7 @@ func (h *Handler) updateMerchCategory(context *fiber.Ctx) error {
 		)
 	}
 
-	if err := h.enterprise.MerchCategory.Update(id, categoryUpdate); err != nil {
+	if err := h.services.MerchCategory.Update(id, categoryUpdate); err != nil {
 		return responseData(
 			context,
 			map[string]interface{}{
@@ -194,7 +194,7 @@ func (h *Handler) deleteMerchCategory(context *fiber.Ctx) error {
 		)
 	}
 
-	if err := h.enterprise.MerchCategory.Delete(id); err != nil {
+	if err := h.services.MerchCategory.Delete(id); err != nil {
 		return responseData(
 			context,
 			map[string]interface{}{

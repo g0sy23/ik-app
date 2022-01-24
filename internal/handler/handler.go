@@ -9,12 +9,12 @@ import (
 )
 
 type Handler struct {
-	enterprise *ik_services.Services
+	services *ik_services.Services
 }
 
-func New(enterprise *ik_services.Services) *Handler {
+func New(services *ik_services.Services) *Handler {
 	return &Handler{
-		enterprise: enterprise,
+		services: services,
 	}
 }
 
@@ -31,7 +31,7 @@ func (h *Handler) InitRoutes(app *fiber.App) {
 		}
 		item := api.Group("/item")
 		{
-			item.Get("/", h.getMerchItemsAll)
+			item.Get("/:page_number", h.getMerchItemsAll)
 			item.Get("/:id", h.getMerchItemById)
 			item.Post("/", h.createMerchItem)
 			item.Patch("/:id", h.updateMerchItem)
@@ -40,8 +40,9 @@ func (h *Handler) InitRoutes(app *fiber.App) {
 	}
 	merch := app.Group("/merch")
 	{
-		merch.Get("/", h.getMerchItemsAll)
-		merch.Get("/:id", h.getMerchItemsByCategoryId)
+		merch.Get("/:page_number", h.getMerchItemsAll)
+		merch.Get("/:category_id", h.getMerchItemsByCategoryId)
+		//merch.Get("/:category_id/:page_number", h.getMerchItemsByCategoryId)
 		merch.Get("/item/:id", h.getMerchItemById)
 	}
 	app.Get("/swagger/*", swagger.HandlerDefault) // default swagger
